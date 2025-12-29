@@ -1,588 +1,687 @@
-# 📋 20 ĐỀ HÓA ĐƠN THANH TOÁN - XML & GIẢI
+# 📋 20 ĐỀ HÓA ĐƠN - XML CẤU TRÚC ĐA DẠNG
 
-> Soạn dữ liệu XML từ các hóa đơn mẫu + Giải thích cấu trúc
+> Mỗi đề dùng cách gõ XML khác nhau - từ đơn giản đến phức tạp
 
 ---
 
-## 📌 ĐỀ 1: THANH TOÁN DỊCH VỤ KHÁCH SẠN
+## 📌 ĐỀ 1: CẤU TRÚC ATTRIBUTE (Thuộc tính)
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 001
-Khách hàng: Trần Minh Hùng
-Ngày lập: 15/03/2024
-
-Dịch vụ          Số lượng    Đơn giá      Thành tiền
-Phòng đơn         3 đêm      500.000 đ    1.500.000 đ
-Ăn sáng           3 suất      150.000 đ    450.000 đ
-Dịch vụ spa       2 lần       300.000 đ    600.000 đ
-                              Tổng tiền:   2.550.000 đ
+HÓA ĐƠN
+Số: 001 | Khách: Trần Minh Hùng | Ngày: 15/03/2024
+Phòng đơn (3 đêm) - 500.000 = 1.500.000
+Ăn sáng (3 suất) - 150.000 = 450.000
+Tổng: 1.950.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML dùng ATTRIBUTE:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>001</so_hoa_don>
-    <ho_ten_khach_hang>Trần Minh Hùng</ho_ten_khach_hang>
-    <ngay_lap>15/03/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Phòng đơn</ten_dich_vu>
-      <so_luong>3</so_luong>
-      <don_gia>500000</don_gia>
-      <thanh_tien>1500000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Ăn sáng</ten_dich_vu>
-      <so_luong>3</so_luong>
-      <don_gia>150000</don_gia>
-      <thanh_tien>450000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Dịch vụ spa</ten_dich_vu>
-      <so_luong>2</so_luong>
-      <don_gia>300000</don_gia>
-      <thanh_tien>600000</thanh_tien>
-    </dich_vu>
-  </danh_sach_dich_vu>
-  <tong_tien>2550000</tong_tien>
+<hoa_don so="001" khach="Trần Minh Hùng" ngay="15/03/2024">
+  <dich_vu ten="Phòng đơn" so_luong="3" don_gia="500000" thanh_tien="1500000"/>
+  <dich_vu ten="Ăn sáng" so_luong="3" don_gia="150000" thanh_tien="450000"/>
+  <tong_tien>1950000</tong_tien>
 </hoa_don>
 ```
 
 ---
 
-## 📌 ĐỀ 2: THANH TOÁN ĐIỆN NƯỚC
+## 📌 ĐỀ 2: CẤU TRÚC NESTED PHỨC TẠP
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 002
+HÓA ĐƠN 002
 Khách hàng: Lê Thị Huỳnh
-Ngày lập: 20/03/2024
-
-Dịch vụ          Số lượng    Đơn giá      Thành tiền
-Điện             150 kWh     2.000 đ      300.000 đ
-Nước             20 m³        45.000 đ     900.000 đ
-Xử lý rác         1 tháng      25.000 đ     25.000 đ
-                              Tổng tiền:   1.225.000 đ
+Dịch vụ:
+  - Điện: 150 kWh x 2.000 = 300.000
+  - Nước: 20 m³ x 45.000 = 900.000
+Tổng: 1.200.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML lồng sâu:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
-  <thong_tin_chung>
+  <thong_tin>
     <so_hoa_don>002</so_hoa_don>
-    <ho_ten_khach_hang>Lê Thị Huỳnh</ho_ten_khach_hang>
+    <khach_hang>
+      <ten>Lê Thị Huỳnh</ten>
+      <loai>Cá nhân</loai>
+    </khach_hang>
     <ngay_lap>20/03/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_dich_vu>
+  </thong_tin>
+  <chi_tiet>
     <dich_vu>
-      <ten_dich_vu>Điện</ten_dich_vu>
-      <so_luong>150</so_luong>
-      <don_gia>2000</don_gia>
-      <thanh_tien>300000</thanh_tien>
+      <ten>Điện</ten>
+      <chi_tiet_san_pham>
+        <so_luong>150</so_luong>
+        <don_vi>kWh</don_vi>
+        <don_gia>2000</don_gia>
+        <thanh_tien>300000</thanh_tien>
+      </chi_tiet_san_pham>
     </dich_vu>
     <dich_vu>
-      <ten_dich_vu>Nước</ten_dich_vu>
-      <so_luong>20</so_luong>
-      <don_gia>45000</don_gia>
-      <thanh_tien>900000</thanh_tien>
+      <ten>Nước</ten>
+      <chi_tiet_san_pham>
+        <so_luong>20</so_luong>
+        <don_vi>m³</don_vi>
+        <don_gia>45000</don_gia>
+        <thanh_tien>900000</thanh_tien>
+      </chi_tiet_san_pham>
     </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Xử lý rác</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>25000</don_gia>
-      <thanh_tien>25000</thanh_tien>
-    </dich_vu>
-  </danh_sach_dich_vu>
-  <tong_tien>1225000</tong_tien>
+  </chi_tiet>
+  <tong_tien>1200000</tong_tien>
 </hoa_don>
 ```
 
 ---
 
-## 📌 ĐỀ 3: THANH TOÁN MUA HÀNG CỬA HÀNG
+## 📌 ĐỀ 3: CẤU TRÚC CDATA (Dữ liệu lớn)
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 003
-Khách hàng: Nguyễn Quốc Khánh
-Ngày lập: 22/03/2024
-
-Sản phẩm         Số lượng    Đơn giá      Thành tiền
-Áo sơ mi         2 cái       250.000 đ    500.000 đ
-Quần jean        1 cái       350.000 đ    350.000 đ
-Giày thể thao    1 đôi       450.000 đ    450.000 đ
-                              Tổng tiền:   1.300.000 đ
+HÓA ĐƠN 003
+Mô tả chi tiết: "Bộ quần áo gồm áo sơ mi, quần jean, giày thể thao..."
+Chi phí: 1.300.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML dùng CDATA:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>003</so_hoa_don>
-    <ho_ten_khach_hang>Nguyễn Quốc Khánh</ho_ten_khach_hang>
-    <ngay_lap>22/03/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_san_pham>
-    <san_pham>
-      <ten_san_pham>Áo sơ mi</ten_san_pham>
-      <so_luong>2</so_luong>
-      <don_gia>250000</don_gia>
-      <thanh_tien>500000</thanh_tien>
-    </san_pham>
-    <san_pham>
-      <ten_san_pham>Quần jean</ten_san_pham>
-      <so_luong>1</so_luong>
-      <don_gia>350000</don_gia>
-      <thanh_tien>350000</thanh_tien>
-    </san_pham>
-    <san_pham>
-      <ten_san_pham>Giày thể thao</ten_san_pham>
-      <so_luong>1</so_luong>
-      <don_gia>450000</don_gia>
-      <thanh_tien>450000</thanh_tien>
-    </san_pham>
-  </danh_sach_san_pham>
+  <so_hoa_don>003</so_hoa_don>
+  <mo_ta><![CDATA[
+    Bộ quần áo gồm:
+    - Áo sơ mi: 2 cái x 250.000 = 500.000
+    - Quần jean: 1 cái x 350.000 = 350.000
+    - Giày thể thao: 1 đôi x 450.000 = 450.000
+  ]]></mo_ta>
   <tong_tien>1300000</tong_tien>
 </hoa_don>
 ```
 
 ---
 
-## 📌 ĐỀ 4: THANH TOÁN VIỆN PHÍ
+## 📌 ĐỀ 4: CẤU TRÚC MIXED CONTENT (Hỗn hợp)
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 004
-Bệnh nhân: Phan Văn Sơn
-Ngày lập: 25/03/2024
-
-Chi phí              Số lượng    Đơn giá      Thành tiền
-Khám tổng quát      1 lần       200.000 đ    200.000 đ
-Xét nghiệm máu      1 lần       150.000 đ    150.000 đ
-Siêu âm tim         1 lần       300.000 đ    300.000 đ
-Nằm viện            3 ngày      800.000 đ    2.400.000 đ
-                                  Tổng tiền:   3.050.000 đ
+HÓA ĐƠN 004
+Bệnh nhân Phan Văn Sơn chi trả:
+- Khám: 200.000
+- Xét nghiệm: 150.000
+- Nằm viện: 2.400.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML hỗn hợp text và tag:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>004</so_hoa_don>
-    <benh_nhan>Phan Văn Sơn</benh_nhan>
-    <ngay_lap>25/03/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_chi_phi>
-    <chi_phi>
-      <ten_chi_phi>Khám tổng quát</ten_chi_phi>
-      <so_luong>1</so_luong>
-      <don_gia>200000</don_gia>
-      <thanh_tien>200000</thanh_tien>
-    </chi_phi>
-    <chi_phi>
-      <ten_chi_phi>Xét nghiệm máu</ten_chi_phi>
-      <so_luong>1</so_luong>
-      <don_gia>150000</don_gia>
-      <thanh_tien>150000</thanh_tien>
-    </chi_phi>
-    <chi_phi>
-      <ten_chi_phi>Siêu âm tim</ten_chi_phi>
-      <so_luong>1</so_luong>
-      <don_gia>300000</don_gia>
-      <thanh_tien>300000</thanh_tien>
-    </chi_phi>
-    <chi_phi>
-      <ten_chi_phi>Nằm viện</ten_chi_phi>
-      <so_luong>3</so_luong>
-      <don_gia>800000</don_gia>
-      <thanh_tien>2400000</thanh_tien>
-    </chi_phi>
-  </danh_sach_chi_phi>
-  <tong_tien>3050000</tong_tien>
+  <benh_nhan>
+    Bệnh nhân <ten>Phan Văn Sơn</ten> chi trả:
+    <chi_phi loai="Khám">200000</chi_phi>,
+    <chi_phi loai="Xét nghiệm">150000</chi_phi>,
+    <chi_phi loai="Nằm viện">2400000</chi_phi>
+  </benh_nhan>
+  <tong>2750000</tong>
 </hoa_don>
 ```
 
 ---
 
-## 📌 ĐỀ 5: THANH TOÁN VẬN CHUYỂN HÀNG
+## 📌 ĐỀ 5: CẤU TRÚC SELF-CLOSING (Tự đóng)
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 005
-Khách hàng: Hồ Bảo Anh
-Ngày lập: 28/03/2024
-
-Dịch vụ          Số lượng    Đơn giá      Thành tiền
-Vận chuyển nội tp  2 lần     100.000 đ    200.000 đ
-Vận chuyển ngoài tp 1 lần    500.000 đ    500.000 đ
-Bảo hiểm hàng      1 lần     150.000 đ    150.000 đ
-                              Tổng tiền:   850.000 đ
+HÓA ĐƠN 005
+Vận chuyển nội tp: 2 lần x 100.000 = 200.000
+Vận chuyển ngoài tp: 1 lần x 500.000 = 500.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML tự đóng tag:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>005</so_hoa_don>
-    <ho_ten_khach_hang>Hồ Bảo Anh</ho_ten_khach_hang>
-    <ngay_lap>28/03/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Vận chuyển nội tp</ten_dich_vu>
-      <so_luong>2</so_luong>
-      <don_gia>100000</don_gia>
-      <thanh_tien>200000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Vận chuyển ngoài tp</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>500000</don_gia>
-      <thanh_tien>500000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Bảo hiểm hàng</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>150000</don_gia>
-      <thanh_tien>150000</thanh_tien>
-    </dich_vu>
-  </danh_sach_dich_vu>
+  <info so="005" khach="Hồ Bảo Anh" ngay="28/03/2024"/>
+  <dich_vu ten="Vận chuyển nội tp" sl="2" gia="100000" tt="200000"/>
+  <dich_vu ten="Vận chuyển ngoài tp" sl="1" gia="500000" tt="500000"/>
+  <dich_vu ten="Bảo hiểm hàng" sl="1" gia="150000" tt="150000"/>
   <tong_tien>850000</tong_tien>
 </hoa_don>
 ```
 
 ---
 
-## 📌 ĐỀ 6: THANH TOÁN INTERNET & ĐIỆN THOẠI
+## 📌 ĐỀ 6: CẤU TRÚC NAMESPACE
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 006
-Khách hàng: Võ Minh Tâm
-Ngày lập: 01/04/2024
-
-Dịch vụ          Số lượng    Đơn giá      Thành tiền
-Internet 100Mbps   1 tháng    350.000 đ    350.000 đ
-Điện thoại        1 tháng     80.000 đ     80.000 đ
-Truyền hình       1 tháng     120.000 đ    120.000 đ
-                              Tổng tiền:   550.000 đ
+HÓA ĐƠN 006
+Internet: 350.000 | Điện thoại: 80.000 | Truyền hình: 120.000
+Tổng: 550.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML dùng Namespace:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>006</so_hoa_don>
-    <ho_ten_khach_hang>Võ Minh Tâm</ho_ten_khach_hang>
-    <ngay_lap>01/04/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Internet 100Mbps</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>350000</don_gia>
-      <thanh_tien>350000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Điện thoại</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>80000</don_gia>
-      <thanh_tien>80000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Truyền hình</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>120000</don_gia>
-      <thanh_tien>120000</thanh_tien>
-    </dich_vu>
-  </danh_sach_dich_vu>
-  <tong_tien>550000</tong_tien>
+<hoa_don xmlns:dv="http://dichvu.vn" xmlns:kh="http://khachhang.vn">
+  <kh:thong_tin>
+    <kh:so_hoa_don>006</kh:so_hoa_don>
+    <kh:ho_ten>Võ Minh Tâm</kh:ho_ten>
+  </kh:thong_tin>
+  <dv:dich_vu>
+    <dv:ten>Internet 100Mbps</dv:ten>
+    <dv:gia>350000</dv:gia>
+  </dv:dich_vu>
+  <dv:dich_vu>
+    <dv:ten>Điện thoại</dv:ten>
+    <dv:gia>80000</dv:gia>
+  </dv:dich_vu>
+  <dv:dich_vu>
+    <dv:ten>Truyền hình</dv:ten>
+    <dv:gia>120000</dv:gia>
+  </dv:dich_vu>
+  <tong>550000</tong>
 </hoa_don>
 ```
 
 ---
 
-## 📌 ĐỀ 7: THANH TOÁN TAXI
+## 📌 ĐỀ 7: CẤU TRÚC DANH SÁCH DÙNG TYPE
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 007
-Khách hàng: Tô Văn Cảnh
-Ngày lập: 05/04/2024
-
-Dịch vụ          Số lượng    Đơn giá      Thành tiền
-Quãng đường       15 km       12.000 đ     180.000 đ
-Chờ xe           2 giờ        5.000 đ      10.000 đ
-Phí dịch vụ      1 lần       10.000 đ     10.000 đ
-                              Tổng tiền:   200.000 đ
+HÓA ĐƠN 007
+[Quãng đường] 15 km x 12.000 = 180.000
+[Chờ xe] 2 giờ x 5.000 = 10.000
+[Phí] 1 lần x 10.000 = 10.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML dùng type attribute:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>007</so_hoa_don>
-    <ho_ten_khach_hang>Tô Văn Cảnh</ho_ten_khach_hang>
-    <ngay_lap>05/04/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Quãng đường</ten_dich_vu>
-      <so_luong>15</so_luong>
-      <don_gia>12000</don_gia>
-      <thanh_tien>180000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Chờ xe</ten_dich_vu>
-      <so_luong>2</so_luong>
-      <don_gia>5000</don_gia>
-      <thanh_tien>10000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Phí dịch vụ</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>10000</don_gia>
-      <thanh_tien>10000</thanh_tien>
-    </dich_vu>
-  </danh_sach_dich_vu>
+  <so_hoa_don>007</so_hoa_don>
+  <khach_hang>Tô Văn Cảnh</khach_hang>
+  <item type="quang_duong" so="15" don_vi="km" gia="12000">180000</item>
+  <item type="cho_xe" so="2" don_vi="gio" gia="5000">10000</item>
+  <item type="phi_dich_vu" so="1" don_vi="lan" gia="10000">10000</item>
   <tong_tien>200000</tong_tien>
 </hoa_don>
 ```
 
 ---
 
-## 📌 ĐỀ 8: THANH TOÁN NHÀ HÀNG
+## 📌 ĐỀ 8: CẤU TRÚC MẢNG ARRAY
 
 ### Đề bài mẫu:
 ```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 008
-Khách hàng: Đặng Huy Hoàng
-Ngày lập: 08/04/2024
-
-Mặt hàng          Số lượng    Đơn giá      Thành tiền
-Cơm chiên         2 suất      85.000 đ     170.000 đ
-Canh chua cá      1 tô        120.000 đ    120.000 đ
-Rau luộc          1 đĩa       60.000 đ     60.000 đ
-Nước ép trái cây  3 li        35.000 đ     105.000 đ
-                              Tổng tiền:   455.000 đ
+HÓA ĐƠN 008
+Cơm chiên: 2 suất x 85.000 = 170.000
+Canh chua cá: 1 tô x 120.000 = 120.000
+Rau luộc: 1 đĩa x 60.000 = 60.000
 ```
 
-### Giải - Tạo file XML:
+### Giải - XML dạng array:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>008</so_hoa_don>
-    <ho_ten_khach_hang>Đặng Huy Hoàng</ho_ten_khach_hang>
+  <so_hoa_don>008</so_hoa_don>
+  <thong_tin>
+    <khach_hang>Đặng Huy Hoàng</khach_hang>
     <ngay_lap>08/04/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_mon_an>
-    <mon_an>
-      <ten_mon_an>Cơm chiên</ten_mon_an>
-      <so_luong>2</so_luong>
-      <don_gia>85000</don_gia>
-      <thanh_tien>170000</thanh_tien>
-    </mon_an>
-    <mon_an>
-      <ten_mon_an>Canh chua cá</ten_mon_an>
-      <so_luong>1</so_luong>
-      <don_gia>120000</don_gia>
-      <thanh_tien>120000</thanh_tien>
-    </mon_an>
-    <mon_an>
-      <ten_mon_an>Rau luộc</ten_mon_an>
-      <so_luong>1</so_luong>
-      <don_gia>60000</don_gia>
-      <thanh_tien>60000</thanh_tien>
-    </mon_an>
-    <mon_an>
-      <ten_mon_an>Nước ép trái cây</ten_mon_an>
+  </thong_tin>
+  <order>
+    <item id="1">
+      <name>Cơm chiên</name>
+      <qty>2</qty>
+      <price>85000</price>
+      <total>170000</total>
+    </item>
+    <item id="2">
+      <name>Canh chua cá</name>
+      <qty>1</qty>
+      <price>120000</price>
+      <total>120000</total>
+    </item>
+    <item id="3">
+      <name>Rau luộc</name>
+      <qty>1</qty>
+      <price>60000</price>
+      <total>60000</total>
+    </item>
+  </order>
+  <summary>
+    <grand_total>350000</grand_total>
+  </summary>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 9: CẤU TRÚC PHẲNG (FLAT)
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 009
+Cắt tóc: 80.000 | Gội đầu: 50.000 | Sấy: 40.000 | Chăm sóc: 100.000
+```
+
+### Giải - XML phẳng (không lồng):
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <so>009</so>
+  <ten_kh>Bùi Văn Thắng</ten_kh>
+  <ngay>10/04/2024</ngay>
+  <dv1_ten>Cắt tóc</dv1_ten>
+  <dv1_gia>80000</dv1_gia>
+  <dv2_ten>Gội đầu</dv2_ten>
+  <dv2_gia>50000</dv2_gia>
+  <dv3_ten>Sấy tóc</dv3_ten>
+  <dv3_gia>40000</dv3_gia>
+  <dv4_ten>Chăm sóc tóc</dv4_ten>
+  <dv4_gia>100000</dv4_gia>
+  <tong>270000</tong>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 10: CẤU TRÚC JSON-LIKE (Định dạng JSON)
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 010
+{"medicines": [
+  {"name": "Aspirin 500mg", "qty": 2, "price": 45000},
+  {"name": "Vitamin C", "qty": 1, "price": 120000}
+]}
+```
+
+### Giải - XML giống JSON:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <id>010</id>
+  <customer>Phạm Thị Loan</customer>
+  <medicines>
+    <medicine id="1" name="Aspirin 500mg" qty="2" price="45000" total="90000"/>
+    <medicine id="2" name="Vitamin C" qty="1" price="120000" total="120000"/>
+    <medicine id="3" name="Kháng sinh" qty="1" price="200000" total="200000"/>
+    <medicine id="4" name="Kem mỡ" qty="1" price="85000" total="85000"/>
+  </medicines>
+  <total>495000</total>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 11: CẤU TRÚC COMMENT VÀ PROCESSING INSTRUCTION
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 011
+Sách lập trình: 250.000 (Hàng mới)
+SQL cơ bản: 180.000 x 2 (Hàng cũ)
+```
+
+### Giải - XML với comment:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="invoice.xsl"?>
+<hoa_don>
+  <!-- Thông tin hóa đơn -->
+  <so_hoa_don>011</so_hoa_don>
+  <khach_hang>Lương Hồng Sơn</khach_hang>
+  
+  <!-- Danh sách sách -->
+  <sach>
+    <ten>Lập trình Python</ten>
+    <so_luong>1</so_luong>
+    <gia>250000</gia>
+    <!-- Sách mới - giảm 5% -->
+    <ghi_chu>Hàng mới</ghi_chu>
+  </sach>
+  
+  <sach>
+    <ten>SQL cơ bản</ten>
+    <so_luong>2</so_luong>
+    <gia>180000</gia>
+    <!-- Sách cũ - không giảm giá -->
+    <ghi_chu>Hàng cũ</ghi_chu>
+  </sach>
+  
+  <tong_tien>610000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 12: CẤU TRÚC ENTITY REFERENCES
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 012
+Thiết kế: & (ampersand) hay &amp;
+Giá: 1.000.000 đ < 2.000.000
+```
+
+### Giải - XML dùng Entity:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hoa_don [
+  <!ENTITY company "Công ty ABC &amp; Co.">
+  <!ENTITY currency "VND">
+]>
+<hoa_don>
+  <so_hoa_don>012</so_hoa_don>
+  <cong_ty>&company;</cong_ty>
+  <khach_hang>Tạ Văn Nam</khach_hang>
+  <dich_vu>
+    <ten>Thiết kế logo</ten>
+    <gia currency="&currency;">1000000</gia>
+  </dich_vu>
+  <dich_vu>
+    <ten>Chỉnh sửa ảnh</ten>
+    <gia>&lt;= 600000</gia>
+  </dich_vu>
+  <tong_tien>1600000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 13: CẤU TRÚC VỚI METADATA
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 013 (Version 2.1, Created 2024-04-20)
+Tập gym: 10 buổi x 50.000 = 500.000
+Yoga: 8 buổi x 80.000 = 640.000
+```
+
+### Giải - XML với metadata:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don version="2.1" created="2024-04-20" updated="2024-04-21">
+  <meta>
+    <type>INVOICE</type>
+    <status>COMPLETED</status>
+    <language>vi-VN</language>
+  </meta>
+  <header>
+    <hoa_don_id>013</hoa_don_id>
+    <khach_hang>Đinh Quang Huy</khach_hang>
+    <ngay_lap>20/04/2024</ngay_lap>
+  </header>
+  <chi_tiet>
+    <goi_tap ten="Tập free" buoi="10" gia="50000" tt="500000"/>
+    <goi_tap ten="Yoga" buoi="8" gia="80000" tt="640000"/>
+    <goi_tap ten="PT riêng" buoi="5" gia="200000" tt="1000000"/>
+  </chi_tiet>
+  <footer>
+    <tong>2140000</tong>
+    <thue>10%</thue>
+    <total_final>2354000</total_final>
+  </footer>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 14: CẤU TRÚC RECURSIVE (Lặp lại)
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 014
+Khoá 1:
+  - Tháng 1: 500.000
+  - Tháng 2: 500.000
+  - Tháng 3: 500.000
+```
+
+### Giải - XML đệ quy:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <so>014</so>
+  <hoc_sinh>Dương Minh Hải</hoc_sinh>
+  <khoa>
+    <so_khoa>1</so_khoa>
+    <tien_hoc>
+      <thang so="1" gia="500000"/>
+      <thang so="2" gia="500000"/>
+      <thang so="3" gia="500000"/>
+    </tien_hoc>
+    <sach>
+      <mon>Toán</mon>
+      <cuon>2</cuon>
+      <gia>150000</gia>
+    </sach>
+  </khoa>
+  <tong>2050000</tong>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 15: CẤU TRÚC MAP/DICTIONARY
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 015
+Bảo dưỡng: 300.000
+Thay dầu: 150.000
+Sửa lốp: 200.000
+```
+
+### Giải - XML dạng Map:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <so_hoa_don>015</so_hoa_don>
+  <khach_hang>
+    <entry key="ho_ten">Trương Văn Toàn</entry>
+    <entry key="xe">Honda Wave</entry>
+    <entry key="bien_so">51-A1234</entry>
+  </khach_hang>
+  <chi_phi>
+    <entry key="bao_duong">300000</entry>
+    <entry key="thay_dau">150000</entry>
+    <entry key="sua_lop">200000</entry>
+    <entry key="rua_xe">80000</entry>
+  </chi_phi>
+  <summary>
+    <entry key="tong">730000</entry>
+    <entry key="vat">73000</entry>
+    <entry key="total">803000</entry>
+  </summary>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 16: CẤU TRÚC LINKED (Liên kết)
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 016
+Salon: ID 016
+Khách: Nguyễn Thị Hương (CustID: C025)
+Nhuộm tóc: 300.000
+```
+
+### Giải - XML với ID reference:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don id="016">
+  <salon_id>S001</salon_id>
+  <khach_hang id="C025">
+    <ten>Nguyễn Thị Hương</ten>
+    <phone>0987654321</phone>
+  </khach_hang>
+  <chi_tiet>
+    <dv_id>DV001</dv_id>
+    <ten>Nhuộm tóc</ten>
+    <gia>300000</gia>
+    <nhan_vien_id>NV015</nhan_vien_id>
+  </chi_tiet>
+  <chi_tiet>
+    <dv_id>DV002</dv_id>
+    <ten>Uốn tóc</ten>
+    <gia>250000</gia>
+    <nhan_vien_id>NV015</nhan_vien_id>
+  </chi_tiet>
+  <tong>550000</tong>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 17: CẤU TRÚC HIERARCHICAL (Phân cấp)
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 017
+Tầng 1:
+  - Sửa cầu thang: 500.000
+Tầng 2:
+  - Sơn phòng khách: 400.000
+  - Sơn phòng ngủ: 400.000
+```
+
+### Giải - XML phân cấp:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <so>017</so>
+  <cong_trinh>
+    <tang level="1" ten="Tầng 1">
+      <job ten="Sửa cầu thang" gia="500000"/>
+    </tang>
+    <tang level="2" ten="Tầng 2">
+      <job ten="Sơn phòng khách" gia="400000"/>
+      <job ten="Sơn phòng ngủ" gia="400000"/>
+    </tang>
+    <tang level="3" ten="Tầng 3">
+      <job ten="Thay mạch điện" gia="600000"/>
+    </tang>
+  </cong_trinh>
+  <tong_tien>1900000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 18: CẤU TRÚC TUPLE/RECORD
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 018
+[ID,Sản phẩm,Số lượng,Giá,Thành tiền]
+[1,Laptop Dell,1,15000000,15000000]
+[2,Chuột,2,150000,300000]
+```
+
+### Giải - XML dạng tuple:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <so_hoa_don>018</so_hoa_don>
+  <khach_hang>Trương Văn Hùng</khach_hang>
+  <record>
+    <field name="id">1</field>
+    <field name="san_pham">Laptop Dell</field>
+    <field name="so_luong">1</field>
+    <field name="gia">15000000</field>
+    <field name="thanh_tien">15000000</field>
+  </record>
+  <record>
+    <field name="id">2</field>
+    <field name="san_pham">Chuột không dây</field>
+    <field name="so_luong">2</field>
+    <field name="gia">150000</field>
+    <field name="thanh_tien">300000</field>
+  </record>
+  <record>
+    <field name="id">3</field>
+    <field name="san_pham">Bàn phím cơ</field>
+    <field name="so_luong">1</field>
+    <field name="gia">800000</field>
+    <field name="thanh_tien">800000</field>
+  </record>
+  <tong_tien>16100000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 19: CẤU TRÚC ENUMERATION
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 019
+Trạng thái: Đã thanh toán
+T-shirt: 3 cái = 360.000 (Còn hàng)
+Quần tây: 2 cái = 800.000 (Hết hàng)
+```
+
+### Giải - XML dùng enum:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don status="PAID">
+  <so_hoa_don>019</so_hoa_don>
+  <khach_hang>Bùi Hải Dương</khach_hang>
+  <san_pham>
+    <item>
+      <ten>T-shirt nam</ten>
       <so_luong>3</so_luong>
-      <don_gia>35000</don_gia>
-      <thanh_tien>105000</thanh_tien>
-    </mon_an>
-  </danh_sach_mon_an>
-  <tong_tien>455000</tong_tien>
-</hoa_don>
-```
-
----
-
-## 📌 ĐỀ 9: THANH TOÁN TIỆM CẮT TÓC
-
-### Đề bài mẫu:
-```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 009
-Khách hàng: Bùi Văn Thắng
-Ngày lập: 10/04/2024
-
-Dịch vụ          Số lượng    Đơn giá      Thành tiền
-Cắt tóc          1 lần       80.000 đ     80.000 đ
-Gội đầu          1 lần       50.000 đ     50.000 đ
-Sấy tóc          1 lần       40.000 đ     40.000 đ
-Chăm sóc tóc     1 lần       100.000 đ    100.000 đ
-                              Tổng tiền:   270.000 đ
-```
-
-### Giải - Tạo file XML:
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>009</so_hoa_don>
-    <ho_ten_khach_hang>Bùi Văn Thắng</ho_ten_khach_hang>
-    <ngay_lap>10/04/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Cắt tóc</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>80000</don_gia>
-      <thanh_tien>80000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Gội đầu</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>50000</don_gia>
-      <thanh_tien>50000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Sấy tóc</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>40000</don_gia>
-      <thanh_tien>40000</thanh_tien>
-    </dich_vu>
-    <dich_vu>
-      <ten_dich_vu>Chăm sóc tóc</ten_dich_vu>
-      <so_luong>1</so_luong>
-      <don_gia>100000</don_gia>
-      <thanh_tien>100000</thanh_tien>
-    </dich_vu>
-  </danh_sach_dich_vu>
-  <tong_tien>270000</tong_tien>
-</hoa_don>
-```
-
----
-
-## 📌 ĐỀ 10: THANH TOÁN TIỆM THUỐC
-
-### Đề bài mẫu:
-```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 010
-Khách hàng: Phạm Thị Loan
-Ngày lập: 12/04/2024
-
-Thuốc             Số lượng    Đơn giá      Thành tiền
-Aspirin 500mg     2 vỉ       45.000 đ     90.000 đ
-Vitamin C         1 hộp      120.000 đ    120.000 đ
-Kháng sinh        1 lọ       200.000 đ    200.000 đ
-Kem mỡ            1 tuýp     85.000 đ     85.000 đ
-                              Tổng tiền:   495.000 đ
-```
-
-### Giải - Tạo file XML:
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>010</so_hoa_don>
-    <ho_ten_khach_hang>Phạm Thị Loan</ho_ten_khach_hang>
-    <ngay_lap>12/04/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_thuoc>
-    <thuoc>
-      <ten_thuoc>Aspirin 500mg</ten_thuoc>
-      <so_luong>2</so_luong>
-      <don_gia>45000</don_gia>
-      <thanh_tien>90000</thanh_tien>
-    </thuoc>
-    <thuoc>
-      <ten_thuoc>Vitamin C</ten_thuoc>
-      <so_luong>1</so_luong>
-      <don_gia>120000</don_gia>
-      <thanh_tien>120000</thanh_tien>
-    </thuoc>
-    <thuoc>
-      <ten_thuoc>Kháng sinh</ten_thuoc>
-      <so_luong>1</so_luong>
-      <don_gia>200000</don_gia>
-      <thanh_tien>200000</thanh_tien>
-    </thuoc>
-    <thuoc>
-      <ten_thuoc>Kem mỡ</ten_thuoc>
-      <so_luong>1</so_luong>
-      <don_gia>85000</don_gia>
-      <thanh_tien>85000</thanh_tien>
-    </thuoc>
-  </danh_sach_thuoc>
-  <tong_tien>495000</tong_tien>
-</hoa_don>
-```
-
----
-
-## 📌 ĐỀ 11: THANH TOÁN CỬA HÀNG SÁCH
-
-### Đề bài mẫu:
-```
-HÓA ĐƠN THANH TOÁN
-Số hóa đơn: 011
-Khách hàng: Lương Hồng Sơn
-Ngày lập: 15/04/2024
-
-Sách              Số lượng    Đơn giá      Thành tiền
-Lập trình Python  1 cuốn     250.000 đ    250.000 đ
-SQL cơ bản        2 cuốn     180.000 đ    360.000 đ
-Web design        1 cuốn     220.000 đ    220.000 đ
-                              Tổng tiền:   830.000 đ
-```
-
-### Giải - Tạo file XML:
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<hoa_don>
-  <thong_tin_chung>
-    <so_hoa_don>011</so_hoa_don>
-    <ho_ten_khach_hang>Lương Hồng Sơn</ho_ten_khach_hang>
-    <ngay_lap>15/04/2024</ngay_lap>
-  </thong_tin_chung>
-  <danh_sach_sach>
-    <sach>
-      <ten_sach>Lập trình Python</ten_sach>
-      <so_luong>1</so_luong>
-      <don_gia>250000</don_gia>
-      <thanh_tien>250000</thanh_tien>
-    </sach>
-    <sach>
-      <ten_sach>SQL cơ bản</ten_sach>
-      <so_luong>2</so_luong>
-      <don_gia>180000</don_gia>
+      <gia>120000</gia>
       <thanh_tien>360000</thanh_tien>
-    </sach>
-    <sach>
-      <ten_sach>Web design</ten_sach>
+      <tinh_trang>AVAILABLE</tinh_trang>
+    </item>
+    <item>
+      <ten>Quần tây</ten>
+      <so_luong>2</so_luong>
+      <gia>400000</gia>
+      <thanh_tien>800000</thanh_tien>
+      <tinh_trang>OUT_OF_STOCK</tinh_trang>
+    </item>
+    <item>
+      <ten>Áo khoác</ten>
       <so_luong>1</so_luong>
-      <don_gia>220000</don_gia>
-      <thanh_tien>220000</thanh_tien>
-    </sach>
+      <gia>600000</gia>
+      <thanh_tien>600000</thanh_tien>
+      <tinh_trang>AVAILABLE</tinh_trang>
+    </item>
+  </san_pham>
+  <tong_tien>1760000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 20: CẤU TRÚC GRAPH (Đồ thị - Liên kết phức tạp)
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN 020
+Cà phê đen (2 ly) -> Barista: A001 -> Quán: Q001
+Cà phê sữa (3 ly) -> Barista: A002 -> Quán: Q001
+```
+
+### Giải - XML dạng graph:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <so_hoa_don>020</so_hoa_don>
+  <quan_cafe id="Q001">
+    <ten>Café Anh Sáng</ten>
+    <dia_chi>123 Nguyễn Huệ</dia_chi>
+  </quan_cafe>
+  <nhan_vien id="A001">
+    <ten>Trần Minh Anh</ten>
+    <vi_tri>Barista</vi_tri>
+    <quan_id>Q001</quan_id>
