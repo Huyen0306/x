@@ -1,598 +1,641 @@
-# 📚 XML/XPath - 100+ Bài Toán Thực Tế
+# 📋 XML - 20 Đề HÓA ĐƠN THANH TOÁN + Giải
 
-> Ghi nhớ nhanh - Không giải thích dài dòng | 100+ câu Q&A
+> Dạng bài tập thực tế: Tạo file XML từ hóa đơn và query dữ liệu
 
 ---
 
-## 🎯 PHẦN 1: XPath CƠ BẢN (20 bài)
+## 📌 TEMPLATE XML HÓA ĐƠN CƠ BẢN
 
-### #1 - Lấy tên khách hàng
-```xpath
-//customer/name
-```
-
-### #2 - Lấy email khách hàng
-```xpath
-//customer/email
-```
-
-### #3 - Lấy số điện thoại khách hàng
-```xpath
-//customer/phone
-```
-
-### #4 - Lấy địa chỉ khách hàng
-```xpath
-//customer/address
-```
-
-### #5 - Lấy tất cả thông tin khách hàng
-```xpath
-//*
-```
-
-### #6 - Lấy danh sách tất cả sản phẩm
-```xpath
-//product
-```
-
-### #7 - Lấy tên tất cả sản phẩm
-```xpath
-//product/name
-```
-
-### #8 - Lấy giá tất cả sản phẩm
-```xpath
-//product/price
-```
-
-### #9 - Lấy số lượng sản phẩm
-```xpath
-//product/quantity
-```
-
-### #10 - Lấy danh mục sản phẩm
-```xpath
-//product/category
-```
-
-### #11 - Lấy sản phẩm đầu tiên
-```xpath
-//product[1]
-```
-
-### #12 - Lấy sản phẩm cuối cùng
-```xpath
-//product[last()]
-```
-
-### #13 - Lấy sản phẩm thứ 3
-```xpath
-//product[3]
-```
-
-### #14 - Lấy mô tả sản phẩm
-```xpath
-//product/description
-```
-
-### #15 - Lấy ID sản phẩm
-```xpath
-//product/@id
-```
-
-### #16 - Lấy tất cả ID
-```xpath
-//@id
-```
-
-### #17 - Lấy thành tiền sản phẩm
-```xpath
-//product/total_amount
-```
-
-### #18 - Lấy đơn vị của sản phẩm
-```xpath
-//product/unit
-```
-
-### #19 - Lấy ngày mua
-```xpath
-//order/date
-```
-
-### #20 - Lấy mã đơn hàng
-```xpath
-//order/@order_id
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>12345</so_hoa_don>
+    <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
+    <ngay_lap>01/06/2020</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+      <so_luong>4</so_luong>
+      <don_gia>600000</don_gia>
+      <thanh_tien>2400000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+      <so_luong>5</so_luong>
+      <don_gia>150000</don_gia>
+      <thanh_tien>750000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+      <so_luong>10</so_luong>
+      <don_gia>50000</don_gia>
+      <thanh_tien>500000</thanh_tien>
+    </dich_vu>
+  </danh_sach_dich_vu>
+  <tong_tien>3650000</tong_tien>
+</hoa_don>
 ```
 
 ---
 
-## 🔍 PHẦN 2: LỌC DỮ LIỆU - ĐIỀU KIỆN ĐƠN (20 bài)
+## 📝 ĐỀ 1: Lấy số hóa đơn
 
-### #21 - Lấy sản phẩm có đơn giá ≥ 50.000
-```xpath
-//product[price >= 50000]
+### XML Data:
+```xml
+<hoa_don>
+  <so_hoa_don>12345</so_hoa_don>
+  <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
+</hoa_don>
 ```
 
-### #22 - Lấy sản phẩm có đơn giá < 100.000
+### XPath:
 ```xpath
-//product[price < 100000]
+//so_hoa_don
 ```
 
-### #23 - Lấy sản phẩm có số lượng = 1
-```xpath
-//product[quantity = 1]
+### Kết quả:
 ```
-
-### #24 - Lấy sản phẩm có số lượng > 5
-```xpath
-//product[quantity > 5]
-```
-
-### #25 - Lấy sản phẩm có tên là "Laptop"
-```xpath
-//product[name = 'Laptop']
-```
-
-### #26 - Lấy sản phẩm thuộc danh mục "Điện tử"
-```xpath
-//product[category = 'Điện tử']
-```
-
-### #27 - Lấy sản phẩm có thành tiền > 500.000
-```xpath
-//product[total_amount > 500000]
-```
-
-### #28 - Lấy sản phẩm có thành tiền ≤ 1.000.000
-```xpath
-//product[total_amount <= 1000000]
-```
-
-### #29 - Lấy khách hàng có tên "Nguyễn Văn A"
-```xpath
-//customer[name = 'Nguyễn Văn A']
-```
-
-### #30 - Lấy khách hàng có email chứa "@gmail.com"
-```xpath
-//customer[contains(email, '@gmail.com')]
-```
-
-### #31 - Lấy sản phẩm có tên chứa "Samsung"
-```xpath
-//product[contains(name, 'Samsung')]
-```
-
-### #32 - Lấy sản phẩm có tên bắt đầu với "Iphone"
-```xpath
-//product[starts-with(name, 'Iphone')]
-```
-
-### #33 - Lấy sản phẩm có tên kết thúc với "Pro"
-```xpath
-//product[substring(name, string-length(name) - 2) = 'Pro']
-```
-
-### #34 - Lấy đơn hàng ngày "2024-01-15"
-```xpath
-//order[date = '2024-01-15']
-```
-
-### #35 - Lấy sản phẩm có id = "P001"
-```xpath
-//product[@id = 'P001']
-```
-
-### #36 - Lấy sản phẩm có attribute status = "active"
-```xpath
-//product[@status = 'active']
-```
-
-### #37 - Lấy khách hàng có attribute type = "VIP"
-```xpath
-//customer[@type = 'VIP']
-```
-
-### #38 - Lấy sản phẩm có quantity ≠ 0
-```xpath
-//product[quantity != 0]
-```
-
-### #39 - Lấy sản phẩm có giá nằm trong khoảng 50.000-100.000
-```xpath
-//product[price >= 50000 and price <= 100000]
-```
-
-### #40 - Lấy sản phẩm có status khác "sold"
-```xpath
-//product[@status != 'sold']
+12345
 ```
 
 ---
 
-## 🧩 PHẦN 3: LỌC DỮ LIỆU - ĐIỀU KIỆN PHỨC HỢP (20 bài)
+## 📝 ĐỀ 2: Lấy tên khách hàng
 
-### #41 - Lấy sản phẩm Điện tử có giá > 1.000.000
-```xpath
-//product[category = 'Điện tử' and price > 1000000]
+### XML Data:
+```xml
+<hoa_don>
+  <so_hoa_don>12345</so_hoa_don>
+  <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
+</hoa_don>
 ```
 
-### #42 - Lấy sản phẩm thuộc danh mục "Quần áo" hoặc "Giày"
+### XPath:
 ```xpath
-//product[category = 'Quần áo' or category = 'Giày']
+//ho_ten_khach_hang
 ```
 
-### #43 - Lấy sản phẩm có số lượng > 10 AND giá < 500.000
-```xpath
-//product[quantity > 10 and price < 500000]
+### Kết quả:
 ```
-
-### #44 - Lấy sản phẩm có tên chứa "Iphone" AND có giá > 5.000.000
-```xpath
-//product[contains(name, 'Iphone') and price > 5000000]
-```
-
-### #45 - Lấy sản phẩm active (status='active') có số lượng > 0
-```xpath
-//product[@status = 'active' and quantity > 0]
-```
-
-### #46 - Lấy sản phẩm VIP hoặc có giá > 10.000.000
-```xpath
-//product[@type = 'VIP' or price > 10000000]
-```
-
-### #47 - Lấy sản phẩm không có attribute ID
-```xpath
-//product[not(@id)]
-```
-
-### #48 - Lấy sản phẩm có attribute nhưng không có status
-```xpath
-//product[@id and not(@status)]
-```
-
-### #49 - Lấy khách hàng có email @gmail hoặc @yahoo
-```xpath
-//customer[contains(email, '@gmail.com') or contains(email, '@yahoo.com')]
-```
-
-### #50 - Lấy sản phẩm thuộc loại "Điện tử" không phải status "sold"
-```xpath
-//product[category = 'Điện tử' and @status != 'sold']
-```
-
-### #51 - Lấy sản phẩm có số lượng từ 5-20 và giá từ 100k-1M
-```xpath
-//product[quantity >= 5 and quantity <= 20 and price >= 100000 and price <= 1000000]
-```
-
-### #52 - Lấy khách hàng VIP hoặc Premium
-```xpath
-//customer[@level = 'VIP' or @level = 'Premium']
-```
-
-### #53 - Lấy sản phẩm có tên bắt đầu "Samsung" hoặc "LG"
-```xpath
-//product[starts-with(name, 'Samsung') or starts-with(name, 'LG')]
-```
-
-### #54 - Lấy sản phẩm có tên chứa "Iphone" nhưng giá < 10.000.000
-```xpath
-//product[contains(name, 'Iphone') and price < 10000000]
-```
-
-### #55 - Lấy sản phẩm không chứa từ "cũ" trong tên
-```xpath
-//product[not(contains(name, 'cũ'))]
-```
-
-### #56 - Lấy sản phẩm có quantity > 0 và có thành tiền > 1.000.000
-```xpath
-//product[quantity > 0 and total_amount > 1000000]
-```
-
-### #57 - Lấy khách hàng vip có địa chỉ chứa "Hà Nội"
-```xpath
-//customer[@type = 'VIP' and contains(address, 'Hà Nội')]
-```
-
-### #58 - Lấy sản phẩm trong khoảng giá 500k-2M hoặc VIP
-```xpath
-//product[(price >= 500000 and price <= 2000000) or @type = 'VIP']
-```
-
-### #59 - Lấy sản phẩm có tên và danh mục không rỗng
-```xpath
-//product[name != '' and category != '']
-```
-
-### #60 - Lấy sản phẩm có mức giảm giá > 10%
-```xpath
-//product[discount > 10]
+Nguyễn Văn A
 ```
 
 ---
 
-## 📊 PHẦN 4: HÀM TÍNH TOÁN - SUM, COUNT, MAX, MIN (20 bài)
+## 📝 ĐỀ 3: Lấy ngày lập hóa đơn
 
-### #61 - Tính tổng thành tiền tất cả sản phẩm
-```xpath
-sum(//product/total_amount)
+### XML Data:
+```xml
+<hoa_don>
+  <thong_tin_chung>
+    <ngay_lap>01/06/2020</ngay_lap>
+  </thong_tin_chung>
+</hoa_don>
 ```
 
-### #62 - Tính tổng giá tất cả sản phẩm
+### XPath:
 ```xpath
-sum(//product/price)
+//ngay_lap
 ```
 
-### #63 - Tính tổng số lượng sản phẩm
-```xpath
-sum(//product/quantity)
+### Kết quả:
 ```
-
-### #64 - Đếm số lượng sản phẩm
-```xpath
-count(//product)
-```
-
-### #65 - Đếm số khách hàng
-```xpath
-count(//customer)
-```
-
-### #66 - Đếm sản phẩm có số lượng > 5
-```xpath
-count(//product[quantity > 5])
-```
-
-### #67 - Lấy giá cao nhất
-```xpath
-max(//product/price)
-```
-
-### #68 - Lấy giá thấp nhất
-```xpath
-min(//product/price)
-```
-
-### #69 - Lấy thành tiền cao nhất
-```xpath
-max(//product/total_amount)
-```
-
-### #70 - Lấy thành tiền thấp nhất
-```xpath
-min(//product/total_amount)
-```
-
-### #71 - Lấy sản phẩm có giá cao nhất (không dùng max)
-```xpath
-//product[price = max(//product/price)]
-```
-
-### #72 - Lấy sản phẩm có thành tiền lớn nhất
-```xpath
-//product[total_amount = max(//product/total_amount)]
-```
-
-### #73 - Tính trung bình giá sản phẩm
-```xpath
-sum(//product/price) div count(//product)
-```
-
-### #74 - Tính trung bình thành tiền
-```xpath
-sum(//product/total_amount) div count(//product)
-```
-
-### #75 - Tính tổng thành tiền các sản phẩm Điện tử
-```xpath
-sum(//product[category = 'Điện tử']/total_amount)
-```
-
-### #76 - Đếm sản phẩm trong danh mục "Quần áo"
-```xpath
-count(//product[category = 'Quần áo'])
-```
-
-### #77 - Tính tổng giá các sản phẩm có quantity > 5
-```xpath
-sum(//product[quantity > 5]/price)
-```
-
-### #78 - Lấy giá cao nhất trong danh mục "Điện tử"
-```xpath
-max(//product[category = 'Điện tử']/price)
-```
-
-### #79 - Đếm sản phẩm VIP
-```xpath
-count(//product[@type = 'VIP'])
-```
-
-### #80 - Tính tổng discount của tất cả sản phẩm
-```xpath
-sum(//product/discount)
+01/06/2020
 ```
 
 ---
 
-## 🎯 PHẦN 5: LẤY PHẦN TỬ CỤ THỂ (20 bài)
+## 📝 ĐỀ 4: Lấy tất cả tên dịch vụ
 
-### #81 - Lấy sản phẩm có thành tiền lớn nhất
-```xpath
-//product[total_amount = max(//product/total_amount)]
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+  </dich_vu>
+</danh_sach_dich_vu>
 ```
 
-### #82 - Lấy tên sản phẩm có thành tiền lớn nhất
+### XPath:
 ```xpath
-//product[total_amount = max(//product/total_amount)]/name
+//dich_vu/ten_dich_vu
 ```
 
-### #83 - Lấy tất cả sản phẩm được sắp xếp (không dùng order by)
-```xpath
-//product
+### Kết quả:
 ```
-
-### #84 - Lấy 3 sản phẩm đầu tiên
-```xpath
-//product[position() <= 3]
-```
-
-### #85 - Lấy 5 sản phẩm cuối cùng
-```xpath
-//product[position() > count(//product) - 5]
-```
-
-### #86 - Lấy sản phẩm ở vị trí 2 đến 5
-```xpath
-//product[position() >= 2 and position() <= 5]
-```
-
-### #87 - Lấy sản phẩm lẻ (vị trí 1, 3, 5...)
-```xpath
-//product[position() mod 2 = 1]
-```
-
-### #88 - Lấy sản phẩm chẵn (vị trí 2, 4, 6...)
-```xpath
-//product[position() mod 2 = 0]
-```
-
-### #89 - Lấy khách hàng VIP đầu tiên
-```xpath
-//customer[@type = 'VIP'][1]
-```
-
-### #90 - Lấy tên khách hàng VIP đầu tiên
-```xpath
-//customer[@type = 'VIP'][1]/name
-```
-
-### #91 - Lấy sản phẩm đắt nhất
-```xpath
-//product[price = max(//product/price)]
-```
-
-### #92 - Lấy tên sản phẩm đắt nhất
-```xpath
-//product[price = max(//product/price)]/name
-```
-
-### #93 - Lấy sản phẩm rẻ nhất
-```xpath
-//product[price = min(//product/price)]
-```
-
-### #94 - Lấy danh mục đầu tiên
-```xpath
-//product[1]/category
-```
-
-### #95 - Lấy đơn hàng mới nhất (giả sử cuối cùng)
-```xpath
-//order[last()]
-```
-
-### #96 - Lấy khách hàng có email dài nhất
-```xpath
-//customer[string-length(email) = max(//customer/string-length(email))]
-```
-
-### #97 - Lấy sản phẩm có tên dài nhất
-```xpath
-//product[string-length(name) = max(//product/string-length(name))]/name
-```
-
-### #98 - Lấy node anh em của sản phẩm đầu tiên
-```xpath
-//product[1]/following-sibling::product
-```
-
-### #99 - Lấy node trước của sản phẩm cuối
-```xpath
-//product[last()]/preceding-sibling::product
-```
-
-### #100 - Lấy tất cả node con của khách hàng đầu tiên
-```xpath
-//customer[1]/*
+Thuê phòng (loại A)
+Thuê xe (loại 4 chỗ)
+Điện thoại (loại 1)
 ```
 
 ---
 
-## 🔗 PHẦN 6: LIÊN KẾT & CẤP ĐỔI (10+ bài)
+## 📝 ĐỀ 5: Lấy tất cả đơn giá
 
-### #101 - Lấy tên khách hàng của đơn hàng đầu tiên
-```xpath
-//order[1]/customer/name
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <don_gia>600000</don_gia>
+  </dich_vu>
+  <dich_vu>
+    <don_gia>150000</don_gia>
+  </dich_vu>
+  <dich_vu>
+    <don_gia>50000</don_gia>
+  </dich_vu>
+</danh_sach_dich_vu>
 ```
 
-### #102 - Lấy tất cả sản phẩm của đơn hàng
+### XPath:
 ```xpath
-//order/product
+//dich_vu/don_gia
 ```
 
-### #103 - Lấy tên sản phẩm trong đơn hàng đầu tiên
-```xpath
-//order[1]/product/name
+### Kết quả:
 ```
-
-### #104 - Lấy node cha của sản phẩm
-```xpath
-//product/..
-```
-
-### #105 - Lấy tất cả ancestor của sản phẩm
-```xpath
-//product/ancestor::*
-```
-
-### #106 - Lấy node con trực tiếp của khách hàng
-```xpath
-//customer/child::*
-```
-
-### #107 - Lấy tất cả node sau sản phẩm thứ 1
-```xpath
-//product[1]/following::*
-```
-
-### #108 - Lấy tất cả node trước sản phẩm cuối
-```xpath
-//product[last()]/preceding::*
-```
-
-### #109 - Lấy phần tử cùng mức với sản phẩm
-```xpath
-//product/parent::*/product
-```
-
-### #110 - Lấy node text của sản phẩm
-```xpath
-//product/text()
+600000
+150000
+50000
 ```
 
 ---
 
-## 📋 CHEAT TABLE
+## 📝 ĐỀ 6: Lấy dịch vụ đầu tiên
 
-| Bài Toán | XPath |
-|----------|-------|
-| Tất cả sản phẩm | `//product` |
-| Sản phẩm thứ 2 | `//product[2]` |
-| Sản phẩm cuối | `//product[last()]` |
-| Giá > 50k | `//product[price > 50000]` |
-| Danh mục Điện tử | `//product[category = 'Điện tử']` |
-| Tổng thành tiền | `sum(//product/total_amount)` |
-| Đếm sản phẩm | `count(//product)` |
-| Giá cao nhất | `max(//product/price)` |
-| Giá thấp nhất | `min(//product/price)` |
-| Sản phẩm đắt nhất | `//product[price = max(//product/price)]` |
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+    <so_luong>4</so_luong>
+    <don_gia>600000</don_gia>
+    <thanh_tien>2400000</thanh_tien>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+  </dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[1]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Thuê phòng (loại A)
+```
 
 ---
 
-**💡 Mẹo:** Kết hợp các điều kiện với `and/or`, dùng hàm `contains()` để tìm text, `count()` để đếm, `sum()` để cộng.
+## 📝 ĐỀ 7: Lấy dịch vụ cuối cùng
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[last()]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Điện thoại (loại 1)
+```
+
+---
+
+## 📝 ĐỀ 8: Tính tổng thành tiền
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><thanh_tien>2400000</thanh_tien></dich_vu>
+  <dich_vu><thanh_tien>750000</thanh_tien></dich_vu>
+  <dich_vu><thanh_tien>500000</thanh_tien></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+sum(//dich_vu/thanh_tien)
+```
+
+### Kết quả:
+```
+3650000
+```
+
+---
+
+## 📝 ĐỀ 9: Lấy dịch vụ có thành tiền cao nhất
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+    <thanh_tien>2400000</thanh_tien>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+    <thanh_tien>750000</thanh_tien>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+    <thanh_tien>500000</thanh_tien>
+  </dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[thanh_tien = max(//dich_vu/thanh_tien)]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Thuê phòng (loại A)
+```
+
+---
+
+## 📝 ĐỀ 10: Đếm số dịch vụ
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+count(//dich_vu)
+```
+
+### Kết quả:
+```
+3
+```
+
+---
+
+## 📝 ĐỀ 11: Lấy dịch vụ có đơn giá > 100.000
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+    <don_gia>600000</don_gia>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+    <don_gia>150000</don_gia>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+    <don_gia>50000</don_gia>
+  </dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[don_gia > 100000]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Thuê phòng (loại A)
+Thuê xe (loại 4 chỗ)
+```
+
+---
+
+## 📝 ĐỀ 12: Lấy dịch vụ có số lượng >= 5
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+    <so_luong>4</so_luong>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+    <so_luong>5</so_luong>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+    <so_luong>10</so_luong>
+  </dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[so_luong >= 5]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Thuê xe (loại 4 chỗ)
+Điện thoại (loại 1)
+```
+
+---
+
+## 📝 ĐỀ 13: Tính tổng số lượng
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><so_luong>4</so_luong></dich_vu>
+  <dich_vu><so_luong>5</so_luong></dich_vu>
+  <dich_vu><so_luong>10</so_luong></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+sum(//dich_vu/so_luong)
+```
+
+### Kết quả:
+```
+19
+```
+
+---
+
+## 📝 ĐỀ 14: Tính giá trung bình
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><don_gia>600000</don_gia></dich_vu>
+  <dich_vu><don_gia>150000</don_gia></dich_vu>
+  <dich_vu><don_gia>50000</don_gia></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+sum(//dich_vu/don_gia) div count(//dich_vu)
+```
+
+### Kết quả:
+```
+266666.666...
+```
+
+---
+
+## 📝 ĐỀ 15: Lấy dịch vụ chứa từ "phòng"
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[contains(ten_dich_vu, 'phòng')]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Thuê phòng (loại A)
+```
+
+---
+
+## 📝 ĐỀ 16: Lấy dịch vụ bắt đầu với "Thuê"
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
+  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[starts-with(ten_dich_vu, 'Thuê')]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Thuê phòng (loại A)
+Thuê xe (loại 4 chỗ)
+```
+
+---
+
+## 📝 ĐỀ 17: Lấy dịch vụ có thanh tiền từ 500.000 đến 2.000.000
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+    <thanh_tien>2400000</thanh_tien>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+    <thanh_tien>750000</thanh_tien>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+    <thanh_tien>500000</thanh_tien>
+  </dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[thanh_tien >= 500000 and thanh_tien <= 2000000]/ten_dich_vu
+```
+
+### Kết quả:
+```
+Thuê xe (loại 4 chỗ)
+Điện thoại (loại 1)
+```
+
+---
+
+## 📝 ĐỀ 18: Đếm dịch vụ có đơn giá > 100.000
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu><don_gia>600000</don_gia></dich_vu>
+  <dich_vu><don_gia>150000</don_gia></dich_vu>
+  <dich_vu><don_gia>50000</don_gia></dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+count(//dich_vu[don_gia > 100000])
+```
+
+### Kết quả:
+```
+2
+```
+
+---
+
+## 📝 ĐỀ 19: Lấy thông tin đầy đủ dịch vụ thứ 2
+
+### XML Data:
+```xml
+<danh_sach_dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+    <so_luong>4</so_luong>
+    <don_gia>600000</don_gia>
+    <thanh_tien>2400000</thanh_tien>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+    <so_luong>5</so_luong>
+    <don_gia>150000</don_gia>
+    <thanh_tien>750000</thanh_tien>
+  </dich_vu>
+  <dich_vu>
+    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+    <so_luong>10</so_luong>
+    <don_gia>50000</don_gia>
+    <thanh_tien>500000</thanh_tien>
+  </dich_vu>
+</danh_sach_dich_vu>
+```
+
+### XPath:
+```xpath
+//dich_vu[2]/*
+```
+
+### Kết quả:
+```
+Thuê xe (loại 4 chỗ)
+5
+150000
+750000
+```
+
+---
+
+## 📝 ĐỀ 20: Lấy tổng tiền từ XML hoàn chỉnh
+
+### XML Data:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>12345</so_hoa_don>
+    <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
+    <ngay_lap>01/06/2020</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
+      <so_luong>4</so_luong>
+      <don_gia>600000</don_gia>
+      <thanh_tien>2400000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
+      <so_luong>5</so_luong>
+      <don_gia>150000</don_gia>
+      <thanh_tien>750000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
+      <so_luong>10</so_luong>
+      <don_gia>50000</don_gia>
+      <thanh_tien>500000</thanh_tien>
+    </dich_vu>
+  </danh_sach_dich_vu>
+  <tong_tien>3650000</tong_tien>
+</hoa_don>
+```
+
+### XPath (Cách 1 - Lấy từ node):
+```xpath
+//tong_tien
+```
+
+### XPath (Cách 2 - Tính từ dịch vụ):
+```xpath
+sum(//danh_sach_dich_vu/dich_vu/thanh_tien)
+```
+
+### Kết quả:
+```
+3650000
+```
+
+---
+
+## 📊 BẢNG TỔNG HỢP 20 ĐỀ
+
+| Đề | Mô tả | XPath |
+|----|-------|-------|
+| 1 | Lấy số hóa đơn | `//so_hoa_don` |
+| 2 | Lấy tên khách hàng | `//ho_ten_khach_hang` |
+| 3 | Lấy ngày lập | `//ngay_lap` |
+| 4 | Tất cả tên dịch vụ | `//dich_vu/ten_dich_vu` |
+| 5 | Tất cả đơn giá | `//dich_vu/don_gia` |
+| 6 | Dịch vụ đầu tiên | `//dich_vu[1]/ten_dich_vu` |
+| 7 | Dịch vụ cuối cùng | `//dich_vu[last()]/ten_dich_vu` |
+| 8 | Tổng thành tiền | `sum(//dich_vu/thanh_tien)` |
+| 9 | Dịch vụ đắt nhất | `//dich_vu[thanh_tien = max(//dich_vu/thanh_tien)]/ten_dich_vu` |
+| 10 | Đếm dịch vụ | `count(//dich_vu)` |
+| 11 | Dịch vụ giá > 100k | `//dich_vu[don_gia > 100000]/ten_dich_vu` |
+| 12 | Dịch vụ SL >= 5 | `//dich_vu[so_luong >= 5]/ten_dich_vu` |
+| 13 | Tổng số lượng | `sum(//dich_vu/so_luong)` |
+| 14 | Giá trung bình | `sum(//dich_vu/don_gia) div count(//dich_vu)` |
+| 15 | Dịch vụ chứa "phòng" | `//dich_vu[contains(ten_dich_vu, 'phòng')]/ten_dich_vu` |
+| 16 | Dịch vụ bắt đầu "Thuê" | `//dich_vu[starts-with(ten_dich_vu, 'Thuê')]/ten_dich_vu` |
+| 17 | Thanh tiền 500k-2M | `//dich_vu[thanh_tien >= 500000 and thanh_tien <= 2000000]/ten_dich_vu` |
+| 18 | Đếm dịch vụ > 100k | `count(//dich_vu[don_gia > 100000])` |
+| 19 | Thông tin dịch vụ thứ 2 | `//dich_vu[2]/*` |
+| 20 | Tổng tiền hóa đơn | `sum(//dich_vu/thanh_tien)` |
+
+---
+
+**💡 Hướng dẫn sử dụng:**
+- Copy XML data vào file `.xml`
+- Test XPath bằng các công cụ: XMLSpy, Oxygen XML, hoặc Online XPath Tester
+- Thay đổi giá trị để tạo thêm bài tập
+- Kết hợp nhiều điều kiện `and/or` để làm khó hơn
