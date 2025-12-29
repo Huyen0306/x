@@ -1,641 +1,588 @@
-# 📋 XML - 20 Đề HÓA ĐƠN THANH TOÁN + Giải
+# 📋 20 ĐỀ HÓA ĐƠN THANH TOÁN - XML & GIẢI
 
-> Dạng bài tập thực tế: Tạo file XML từ hóa đơn và query dữ liệu
+> Soạn dữ liệu XML từ các hóa đơn mẫu + Giải thích cấu trúc
 
 ---
 
-## 📌 TEMPLATE XML HÓA ĐƠN CƠ BẢN
+## 📌 ĐỀ 1: THANH TOÁN DỊCH VỤ KHÁCH SẠN
 
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 001
+Khách hàng: Trần Minh Hùng
+Ngày lập: 15/03/2024
+
+Dịch vụ          Số lượng    Đơn giá      Thành tiền
+Phòng đơn         3 đêm      500.000 đ    1.500.000 đ
+Ăn sáng           3 suất      150.000 đ    450.000 đ
+Dịch vụ spa       2 lần       300.000 đ    600.000 đ
+                              Tổng tiền:   2.550.000 đ
+```
+
+### Giải - Tạo file XML:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
   <thong_tin_chung>
-    <so_hoa_don>12345</so_hoa_don>
-    <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
-    <ngay_lap>01/06/2020</ngay_lap>
+    <so_hoa_don>001</so_hoa_don>
+    <ho_ten_khach_hang>Trần Minh Hùng</ho_ten_khach_hang>
+    <ngay_lap>15/03/2024</ngay_lap>
   </thong_tin_chung>
   <danh_sach_dich_vu>
     <dich_vu>
-      <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-      <so_luong>4</so_luong>
-      <don_gia>600000</don_gia>
-      <thanh_tien>2400000</thanh_tien>
+      <ten_dich_vu>Phòng đơn</ten_dich_vu>
+      <so_luong>3</so_luong>
+      <don_gia>500000</don_gia>
+      <thanh_tien>1500000</thanh_tien>
     </dich_vu>
     <dich_vu>
-      <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-      <so_luong>5</so_luong>
+      <ten_dich_vu>Ăn sáng</ten_dich_vu>
+      <so_luong>3</so_luong>
       <don_gia>150000</don_gia>
-      <thanh_tien>750000</thanh_tien>
+      <thanh_tien>450000</thanh_tien>
     </dich_vu>
     <dich_vu>
-      <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-      <so_luong>10</so_luong>
-      <don_gia>50000</don_gia>
-      <thanh_tien>500000</thanh_tien>
+      <ten_dich_vu>Dịch vụ spa</ten_dich_vu>
+      <so_luong>2</so_luong>
+      <don_gia>300000</don_gia>
+      <thanh_tien>600000</thanh_tien>
     </dich_vu>
   </danh_sach_dich_vu>
-  <tong_tien>3650000</tong_tien>
+  <tong_tien>2550000</tong_tien>
 </hoa_don>
 ```
 
 ---
 
-## 📝 ĐỀ 1: Lấy số hóa đơn
+## 📌 ĐỀ 2: THANH TOÁN ĐIỆN NƯỚC
 
-### XML Data:
-```xml
-<hoa_don>
-  <so_hoa_don>12345</so_hoa_don>
-  <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
-</hoa_don>
+### Đề bài mẫu:
 ```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 002
+Khách hàng: Lê Thị Huỳnh
+Ngày lập: 20/03/2024
 
-### XPath:
-```xpath
-//so_hoa_don
+Dịch vụ          Số lượng    Đơn giá      Thành tiền
+Điện             150 kWh     2.000 đ      300.000 đ
+Nước             20 m³        45.000 đ     900.000 đ
+Xử lý rác         1 tháng      25.000 đ     25.000 đ
+                              Tổng tiền:   1.225.000 đ
 ```
 
-### Kết quả:
-```
-12345
-```
-
----
-
-## 📝 ĐỀ 2: Lấy tên khách hàng
-
-### XML Data:
-```xml
-<hoa_don>
-  <so_hoa_don>12345</so_hoa_don>
-  <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
-</hoa_don>
-```
-
-### XPath:
-```xpath
-//ho_ten_khach_hang
-```
-
-### Kết quả:
-```
-Nguyễn Văn A
-```
-
----
-
-## 📝 ĐỀ 3: Lấy ngày lập hóa đơn
-
-### XML Data:
-```xml
-<hoa_don>
-  <thong_tin_chung>
-    <ngay_lap>01/06/2020</ngay_lap>
-  </thong_tin_chung>
-</hoa_don>
-```
-
-### XPath:
-```xpath
-//ngay_lap
-```
-
-### Kết quả:
-```
-01/06/2020
-```
-
----
-
-## 📝 ĐỀ 4: Lấy tất cả tên dịch vụ
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê phòng (loại A)
-Thuê xe (loại 4 chỗ)
-Điện thoại (loại 1)
-```
-
----
-
-## 📝 ĐỀ 5: Lấy tất cả đơn giá
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <don_gia>600000</don_gia>
-  </dich_vu>
-  <dich_vu>
-    <don_gia>150000</don_gia>
-  </dich_vu>
-  <dich_vu>
-    <don_gia>50000</don_gia>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu/don_gia
-```
-
-### Kết quả:
-```
-600000
-150000
-50000
-```
-
----
-
-## 📝 ĐỀ 6: Lấy dịch vụ đầu tiên
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-    <so_luong>4</so_luong>
-    <don_gia>600000</don_gia>
-    <thanh_tien>2400000</thanh_tien>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[1]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê phòng (loại A)
-```
-
----
-
-## 📝 ĐỀ 7: Lấy dịch vụ cuối cùng
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[last()]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Điện thoại (loại 1)
-```
-
----
-
-## 📝 ĐỀ 8: Tính tổng thành tiền
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><thanh_tien>2400000</thanh_tien></dich_vu>
-  <dich_vu><thanh_tien>750000</thanh_tien></dich_vu>
-  <dich_vu><thanh_tien>500000</thanh_tien></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-sum(//dich_vu/thanh_tien)
-```
-
-### Kết quả:
-```
-3650000
-```
-
----
-
-## 📝 ĐỀ 9: Lấy dịch vụ có thành tiền cao nhất
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-    <thanh_tien>2400000</thanh_tien>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-    <thanh_tien>750000</thanh_tien>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-    <thanh_tien>500000</thanh_tien>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[thanh_tien = max(//dich_vu/thanh_tien)]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê phòng (loại A)
-```
-
----
-
-## 📝 ĐỀ 10: Đếm số dịch vụ
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-count(//dich_vu)
-```
-
-### Kết quả:
-```
-3
-```
-
----
-
-## 📝 ĐỀ 11: Lấy dịch vụ có đơn giá > 100.000
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-    <don_gia>600000</don_gia>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-    <don_gia>150000</don_gia>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-    <don_gia>50000</don_gia>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[don_gia > 100000]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê phòng (loại A)
-Thuê xe (loại 4 chỗ)
-```
-
----
-
-## 📝 ĐỀ 12: Lấy dịch vụ có số lượng >= 5
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-    <so_luong>4</so_luong>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-    <so_luong>5</so_luong>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-    <so_luong>10</so_luong>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[so_luong >= 5]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê xe (loại 4 chỗ)
-Điện thoại (loại 1)
-```
-
----
-
-## 📝 ĐỀ 13: Tính tổng số lượng
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><so_luong>4</so_luong></dich_vu>
-  <dich_vu><so_luong>5</so_luong></dich_vu>
-  <dich_vu><so_luong>10</so_luong></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-sum(//dich_vu/so_luong)
-```
-
-### Kết quả:
-```
-19
-```
-
----
-
-## 📝 ĐỀ 14: Tính giá trung bình
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><don_gia>600000</don_gia></dich_vu>
-  <dich_vu><don_gia>150000</don_gia></dich_vu>
-  <dich_vu><don_gia>50000</don_gia></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-sum(//dich_vu/don_gia) div count(//dich_vu)
-```
-
-### Kết quả:
-```
-266666.666...
-```
-
----
-
-## 📝 ĐỀ 15: Lấy dịch vụ chứa từ "phòng"
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[contains(ten_dich_vu, 'phòng')]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê phòng (loại A)
-```
-
----
-
-## 📝 ĐỀ 16: Lấy dịch vụ bắt đầu với "Thuê"
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu></dich_vu>
-  <dich_vu><ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[starts-with(ten_dich_vu, 'Thuê')]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê phòng (loại A)
-Thuê xe (loại 4 chỗ)
-```
-
----
-
-## 📝 ĐỀ 17: Lấy dịch vụ có thanh tiền từ 500.000 đến 2.000.000
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-    <thanh_tien>2400000</thanh_tien>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-    <thanh_tien>750000</thanh_tien>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-    <thanh_tien>500000</thanh_tien>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[thanh_tien >= 500000 and thanh_tien <= 2000000]/ten_dich_vu
-```
-
-### Kết quả:
-```
-Thuê xe (loại 4 chỗ)
-Điện thoại (loại 1)
-```
-
----
-
-## 📝 ĐỀ 18: Đếm dịch vụ có đơn giá > 100.000
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu><don_gia>600000</don_gia></dich_vu>
-  <dich_vu><don_gia>150000</don_gia></dich_vu>
-  <dich_vu><don_gia>50000</don_gia></dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-count(//dich_vu[don_gia > 100000])
-```
-
-### Kết quả:
-```
-2
-```
-
----
-
-## 📝 ĐỀ 19: Lấy thông tin đầy đủ dịch vụ thứ 2
-
-### XML Data:
-```xml
-<danh_sach_dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-    <so_luong>4</so_luong>
-    <don_gia>600000</don_gia>
-    <thanh_tien>2400000</thanh_tien>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-    <so_luong>5</so_luong>
-    <don_gia>150000</don_gia>
-    <thanh_tien>750000</thanh_tien>
-  </dich_vu>
-  <dich_vu>
-    <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-    <so_luong>10</so_luong>
-    <don_gia>50000</don_gia>
-    <thanh_tien>500000</thanh_tien>
-  </dich_vu>
-</danh_sach_dich_vu>
-```
-
-### XPath:
-```xpath
-//dich_vu[2]/*
-```
-
-### Kết quả:
-```
-Thuê xe (loại 4 chỗ)
-5
-150000
-750000
-```
-
----
-
-## 📝 ĐỀ 20: Lấy tổng tiền từ XML hoàn chỉnh
-
-### XML Data:
+### Giải - Tạo file XML:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <hoa_don>
   <thong_tin_chung>
-    <so_hoa_don>12345</so_hoa_don>
-    <ho_ten_khach_hang>Nguyễn Văn A</ho_ten_khach_hang>
-    <ngay_lap>01/06/2020</ngay_lap>
+    <so_hoa_don>002</so_hoa_don>
+    <ho_ten_khach_hang>Lê Thị Huỳnh</ho_ten_khach_hang>
+    <ngay_lap>20/03/2024</ngay_lap>
   </thong_tin_chung>
   <danh_sach_dich_vu>
     <dich_vu>
-      <ten_dich_vu>Thuê phòng (loại A)</ten_dich_vu>
-      <so_luong>4</so_luong>
-      <don_gia>600000</don_gia>
-      <thanh_tien>2400000</thanh_tien>
+      <ten_dich_vu>Điện</ten_dich_vu>
+      <so_luong>150</so_luong>
+      <don_gia>2000</don_gia>
+      <thanh_tien>300000</thanh_tien>
     </dich_vu>
     <dich_vu>
-      <ten_dich_vu>Thuê xe (loại 4 chỗ)</ten_dich_vu>
-      <so_luong>5</so_luong>
-      <don_gia>150000</don_gia>
-      <thanh_tien>750000</thanh_tien>
+      <ten_dich_vu>Nước</ten_dich_vu>
+      <so_luong>20</so_luong>
+      <don_gia>45000</don_gia>
+      <thanh_tien>900000</thanh_tien>
     </dich_vu>
     <dich_vu>
-      <ten_dich_vu>Điện thoại (loại 1)</ten_dich_vu>
-      <so_luong>10</so_luong>
-      <don_gia>50000</don_gia>
-      <thanh_tien>500000</thanh_tien>
+      <ten_dich_vu>Xử lý rác</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>25000</don_gia>
+      <thanh_tien>25000</thanh_tien>
     </dich_vu>
   </danh_sach_dich_vu>
-  <tong_tien>3650000</tong_tien>
+  <tong_tien>1225000</tong_tien>
 </hoa_don>
 ```
 
-### XPath (Cách 1 - Lấy từ node):
-```xpath
-//tong_tien
+---
+
+## 📌 ĐỀ 3: THANH TOÁN MUA HÀNG CỬA HÀNG
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 003
+Khách hàng: Nguyễn Quốc Khánh
+Ngày lập: 22/03/2024
+
+Sản phẩm         Số lượng    Đơn giá      Thành tiền
+Áo sơ mi         2 cái       250.000 đ    500.000 đ
+Quần jean        1 cái       350.000 đ    350.000 đ
+Giày thể thao    1 đôi       450.000 đ    450.000 đ
+                              Tổng tiền:   1.300.000 đ
 ```
 
-### XPath (Cách 2 - Tính từ dịch vụ):
-```xpath
-sum(//danh_sach_dich_vu/dich_vu/thanh_tien)
-```
-
-### Kết quả:
-```
-3650000
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>003</so_hoa_don>
+    <ho_ten_khach_hang>Nguyễn Quốc Khánh</ho_ten_khach_hang>
+    <ngay_lap>22/03/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_san_pham>
+    <san_pham>
+      <ten_san_pham>Áo sơ mi</ten_san_pham>
+      <so_luong>2</so_luong>
+      <don_gia>250000</don_gia>
+      <thanh_tien>500000</thanh_tien>
+    </san_pham>
+    <san_pham>
+      <ten_san_pham>Quần jean</ten_san_pham>
+      <so_luong>1</so_luong>
+      <don_gia>350000</don_gia>
+      <thanh_tien>350000</thanh_tien>
+    </san_pham>
+    <san_pham>
+      <ten_san_pham>Giày thể thao</ten_san_pham>
+      <so_luong>1</so_luong>
+      <don_gia>450000</don_gia>
+      <thanh_tien>450000</thanh_tien>
+    </san_pham>
+  </danh_sach_san_pham>
+  <tong_tien>1300000</tong_tien>
+</hoa_don>
 ```
 
 ---
 
-## 📊 BẢNG TỔNG HỢP 20 ĐỀ
+## 📌 ĐỀ 4: THANH TOÁN VIỆN PHÍ
 
-| Đề | Mô tả | XPath |
-|----|-------|-------|
-| 1 | Lấy số hóa đơn | `//so_hoa_don` |
-| 2 | Lấy tên khách hàng | `//ho_ten_khach_hang` |
-| 3 | Lấy ngày lập | `//ngay_lap` |
-| 4 | Tất cả tên dịch vụ | `//dich_vu/ten_dich_vu` |
-| 5 | Tất cả đơn giá | `//dich_vu/don_gia` |
-| 6 | Dịch vụ đầu tiên | `//dich_vu[1]/ten_dich_vu` |
-| 7 | Dịch vụ cuối cùng | `//dich_vu[last()]/ten_dich_vu` |
-| 8 | Tổng thành tiền | `sum(//dich_vu/thanh_tien)` |
-| 9 | Dịch vụ đắt nhất | `//dich_vu[thanh_tien = max(//dich_vu/thanh_tien)]/ten_dich_vu` |
-| 10 | Đếm dịch vụ | `count(//dich_vu)` |
-| 11 | Dịch vụ giá > 100k | `//dich_vu[don_gia > 100000]/ten_dich_vu` |
-| 12 | Dịch vụ SL >= 5 | `//dich_vu[so_luong >= 5]/ten_dich_vu` |
-| 13 | Tổng số lượng | `sum(//dich_vu/so_luong)` |
-| 14 | Giá trung bình | `sum(//dich_vu/don_gia) div count(//dich_vu)` |
-| 15 | Dịch vụ chứa "phòng" | `//dich_vu[contains(ten_dich_vu, 'phòng')]/ten_dich_vu` |
-| 16 | Dịch vụ bắt đầu "Thuê" | `//dich_vu[starts-with(ten_dich_vu, 'Thuê')]/ten_dich_vu` |
-| 17 | Thanh tiền 500k-2M | `//dich_vu[thanh_tien >= 500000 and thanh_tien <= 2000000]/ten_dich_vu` |
-| 18 | Đếm dịch vụ > 100k | `count(//dich_vu[don_gia > 100000])` |
-| 19 | Thông tin dịch vụ thứ 2 | `//dich_vu[2]/*` |
-| 20 | Tổng tiền hóa đơn | `sum(//dich_vu/thanh_tien)` |
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 004
+Bệnh nhân: Phan Văn Sơn
+Ngày lập: 25/03/2024
+
+Chi phí              Số lượng    Đơn giá      Thành tiền
+Khám tổng quát      1 lần       200.000 đ    200.000 đ
+Xét nghiệm máu      1 lần       150.000 đ    150.000 đ
+Siêu âm tim         1 lần       300.000 đ    300.000 đ
+Nằm viện            3 ngày      800.000 đ    2.400.000 đ
+                                  Tổng tiền:   3.050.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>004</so_hoa_don>
+    <benh_nhan>Phan Văn Sơn</benh_nhan>
+    <ngay_lap>25/03/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_chi_phi>
+    <chi_phi>
+      <ten_chi_phi>Khám tổng quát</ten_chi_phi>
+      <so_luong>1</so_luong>
+      <don_gia>200000</don_gia>
+      <thanh_tien>200000</thanh_tien>
+    </chi_phi>
+    <chi_phi>
+      <ten_chi_phi>Xét nghiệm máu</ten_chi_phi>
+      <so_luong>1</so_luong>
+      <don_gia>150000</don_gia>
+      <thanh_tien>150000</thanh_tien>
+    </chi_phi>
+    <chi_phi>
+      <ten_chi_phi>Siêu âm tim</ten_chi_phi>
+      <so_luong>1</so_luong>
+      <don_gia>300000</don_gia>
+      <thanh_tien>300000</thanh_tien>
+    </chi_phi>
+    <chi_phi>
+      <ten_chi_phi>Nằm viện</ten_chi_phi>
+      <so_luong>3</so_luong>
+      <don_gia>800000</don_gia>
+      <thanh_tien>2400000</thanh_tien>
+    </chi_phi>
+  </danh_sach_chi_phi>
+  <tong_tien>3050000</tong_tien>
+</hoa_don>
+```
 
 ---
 
-**💡 Hướng dẫn sử dụng:**
-- Copy XML data vào file `.xml`
-- Test XPath bằng các công cụ: XMLSpy, Oxygen XML, hoặc Online XPath Tester
-- Thay đổi giá trị để tạo thêm bài tập
-- Kết hợp nhiều điều kiện `and/or` để làm khó hơn
+## 📌 ĐỀ 5: THANH TOÁN VẬN CHUYỂN HÀNG
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 005
+Khách hàng: Hồ Bảo Anh
+Ngày lập: 28/03/2024
+
+Dịch vụ          Số lượng    Đơn giá      Thành tiền
+Vận chuyển nội tp  2 lần     100.000 đ    200.000 đ
+Vận chuyển ngoài tp 1 lần    500.000 đ    500.000 đ
+Bảo hiểm hàng      1 lần     150.000 đ    150.000 đ
+                              Tổng tiền:   850.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>005</so_hoa_don>
+    <ho_ten_khach_hang>Hồ Bảo Anh</ho_ten_khach_hang>
+    <ngay_lap>28/03/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Vận chuyển nội tp</ten_dich_vu>
+      <so_luong>2</so_luong>
+      <don_gia>100000</don_gia>
+      <thanh_tien>200000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Vận chuyển ngoài tp</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>500000</don_gia>
+      <thanh_tien>500000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Bảo hiểm hàng</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>150000</don_gia>
+      <thanh_tien>150000</thanh_tien>
+    </dich_vu>
+  </danh_sach_dich_vu>
+  <tong_tien>850000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 6: THANH TOÁN INTERNET & ĐIỆN THOẠI
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 006
+Khách hàng: Võ Minh Tâm
+Ngày lập: 01/04/2024
+
+Dịch vụ          Số lượng    Đơn giá      Thành tiền
+Internet 100Mbps   1 tháng    350.000 đ    350.000 đ
+Điện thoại        1 tháng     80.000 đ     80.000 đ
+Truyền hình       1 tháng     120.000 đ    120.000 đ
+                              Tổng tiền:   550.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>006</so_hoa_don>
+    <ho_ten_khach_hang>Võ Minh Tâm</ho_ten_khach_hang>
+    <ngay_lap>01/04/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Internet 100Mbps</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>350000</don_gia>
+      <thanh_tien>350000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Điện thoại</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>80000</don_gia>
+      <thanh_tien>80000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Truyền hình</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>120000</don_gia>
+      <thanh_tien>120000</thanh_tien>
+    </dich_vu>
+  </danh_sach_dich_vu>
+  <tong_tien>550000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 7: THANH TOÁN TAXI
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 007
+Khách hàng: Tô Văn Cảnh
+Ngày lập: 05/04/2024
+
+Dịch vụ          Số lượng    Đơn giá      Thành tiền
+Quãng đường       15 km       12.000 đ     180.000 đ
+Chờ xe           2 giờ        5.000 đ      10.000 đ
+Phí dịch vụ      1 lần       10.000 đ     10.000 đ
+                              Tổng tiền:   200.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>007</so_hoa_don>
+    <ho_ten_khach_hang>Tô Văn Cảnh</ho_ten_khach_hang>
+    <ngay_lap>05/04/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Quãng đường</ten_dich_vu>
+      <so_luong>15</so_luong>
+      <don_gia>12000</don_gia>
+      <thanh_tien>180000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Chờ xe</ten_dich_vu>
+      <so_luong>2</so_luong>
+      <don_gia>5000</don_gia>
+      <thanh_tien>10000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Phí dịch vụ</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>10000</don_gia>
+      <thanh_tien>10000</thanh_tien>
+    </dich_vu>
+  </danh_sach_dich_vu>
+  <tong_tien>200000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 8: THANH TOÁN NHÀ HÀNG
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 008
+Khách hàng: Đặng Huy Hoàng
+Ngày lập: 08/04/2024
+
+Mặt hàng          Số lượng    Đơn giá      Thành tiền
+Cơm chiên         2 suất      85.000 đ     170.000 đ
+Canh chua cá      1 tô        120.000 đ    120.000 đ
+Rau luộc          1 đĩa       60.000 đ     60.000 đ
+Nước ép trái cây  3 li        35.000 đ     105.000 đ
+                              Tổng tiền:   455.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>008</so_hoa_don>
+    <ho_ten_khach_hang>Đặng Huy Hoàng</ho_ten_khach_hang>
+    <ngay_lap>08/04/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_mon_an>
+    <mon_an>
+      <ten_mon_an>Cơm chiên</ten_mon_an>
+      <so_luong>2</so_luong>
+      <don_gia>85000</don_gia>
+      <thanh_tien>170000</thanh_tien>
+    </mon_an>
+    <mon_an>
+      <ten_mon_an>Canh chua cá</ten_mon_an>
+      <so_luong>1</so_luong>
+      <don_gia>120000</don_gia>
+      <thanh_tien>120000</thanh_tien>
+    </mon_an>
+    <mon_an>
+      <ten_mon_an>Rau luộc</ten_mon_an>
+      <so_luong>1</so_luong>
+      <don_gia>60000</don_gia>
+      <thanh_tien>60000</thanh_tien>
+    </mon_an>
+    <mon_an>
+      <ten_mon_an>Nước ép trái cây</ten_mon_an>
+      <so_luong>3</so_luong>
+      <don_gia>35000</don_gia>
+      <thanh_tien>105000</thanh_tien>
+    </mon_an>
+  </danh_sach_mon_an>
+  <tong_tien>455000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 9: THANH TOÁN TIỆM CẮT TÓC
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 009
+Khách hàng: Bùi Văn Thắng
+Ngày lập: 10/04/2024
+
+Dịch vụ          Số lượng    Đơn giá      Thành tiền
+Cắt tóc          1 lần       80.000 đ     80.000 đ
+Gội đầu          1 lần       50.000 đ     50.000 đ
+Sấy tóc          1 lần       40.000 đ     40.000 đ
+Chăm sóc tóc     1 lần       100.000 đ    100.000 đ
+                              Tổng tiền:   270.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>009</so_hoa_don>
+    <ho_ten_khach_hang>Bùi Văn Thắng</ho_ten_khach_hang>
+    <ngay_lap>10/04/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Cắt tóc</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>80000</don_gia>
+      <thanh_tien>80000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Gội đầu</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>50000</don_gia>
+      <thanh_tien>50000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Sấy tóc</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>40000</don_gia>
+      <thanh_tien>40000</thanh_tien>
+    </dich_vu>
+    <dich_vu>
+      <ten_dich_vu>Chăm sóc tóc</ten_dich_vu>
+      <so_luong>1</so_luong>
+      <don_gia>100000</don_gia>
+      <thanh_tien>100000</thanh_tien>
+    </dich_vu>
+  </danh_sach_dich_vu>
+  <tong_tien>270000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 10: THANH TOÁN TIỆM THUỐC
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 010
+Khách hàng: Phạm Thị Loan
+Ngày lập: 12/04/2024
+
+Thuốc             Số lượng    Đơn giá      Thành tiền
+Aspirin 500mg     2 vỉ       45.000 đ     90.000 đ
+Vitamin C         1 hộp      120.000 đ    120.000 đ
+Kháng sinh        1 lọ       200.000 đ    200.000 đ
+Kem mỡ            1 tuýp     85.000 đ     85.000 đ
+                              Tổng tiền:   495.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>010</so_hoa_don>
+    <ho_ten_khach_hang>Phạm Thị Loan</ho_ten_khach_hang>
+    <ngay_lap>12/04/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_thuoc>
+    <thuoc>
+      <ten_thuoc>Aspirin 500mg</ten_thuoc>
+      <so_luong>2</so_luong>
+      <don_gia>45000</don_gia>
+      <thanh_tien>90000</thanh_tien>
+    </thuoc>
+    <thuoc>
+      <ten_thuoc>Vitamin C</ten_thuoc>
+      <so_luong>1</so_luong>
+      <don_gia>120000</don_gia>
+      <thanh_tien>120000</thanh_tien>
+    </thuoc>
+    <thuoc>
+      <ten_thuoc>Kháng sinh</ten_thuoc>
+      <so_luong>1</so_luong>
+      <don_gia>200000</don_gia>
+      <thanh_tien>200000</thanh_tien>
+    </thuoc>
+    <thuoc>
+      <ten_thuoc>Kem mỡ</ten_thuoc>
+      <so_luong>1</so_luong>
+      <don_gia>85000</don_gia>
+      <thanh_tien>85000</thanh_tien>
+    </thuoc>
+  </danh_sach_thuoc>
+  <tong_tien>495000</tong_tien>
+</hoa_don>
+```
+
+---
+
+## 📌 ĐỀ 11: THANH TOÁN CỬA HÀNG SÁCH
+
+### Đề bài mẫu:
+```
+HÓA ĐƠN THANH TOÁN
+Số hóa đơn: 011
+Khách hàng: Lương Hồng Sơn
+Ngày lập: 15/04/2024
+
+Sách              Số lượng    Đơn giá      Thành tiền
+Lập trình Python  1 cuốn     250.000 đ    250.000 đ
+SQL cơ bản        2 cuốn     180.000 đ    360.000 đ
+Web design        1 cuốn     220.000 đ    220.000 đ
+                              Tổng tiền:   830.000 đ
+```
+
+### Giải - Tạo file XML:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<hoa_don>
+  <thong_tin_chung>
+    <so_hoa_don>011</so_hoa_don>
+    <ho_ten_khach_hang>Lương Hồng Sơn</ho_ten_khach_hang>
+    <ngay_lap>15/04/2024</ngay_lap>
+  </thong_tin_chung>
+  <danh_sach_sach>
+    <sach>
+      <ten_sach>Lập trình Python</ten_sach>
+      <so_luong>1</so_luong>
+      <don_gia>250000</don_gia>
+      <thanh_tien>250000</thanh_tien>
+    </sach>
+    <sach>
+      <ten_sach>SQL cơ bản</ten_sach>
+      <so_luong>2</so_luong>
+      <don_gia>180000</don_gia>
+      <thanh_tien>360000</thanh_tien>
+    </sach>
+    <sach>
+      <ten_sach>Web design</ten_sach>
+      <so_luong>1</so_luong>
+      <don_gia>220000</don_gia>
+      <thanh_tien>220000</thanh_tien>
+    </sach>
